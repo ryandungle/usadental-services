@@ -1,0 +1,7 @@
+/helpers/config.js
+# dependencies
+/node_modules
+/logs
+/.pnp
+.pnp.js
+.env
