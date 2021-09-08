@@ -150,7 +150,7 @@ const saveDentrackAppointmentToCached =
 const clearDentrackAppointmentCached =
   async function clearDentrackAppointmentCached() {
     try {
-      Appointment.deleteMany();
+      await Appointment.deleteMany();
       logger.info("clear Appointment cache completed");
     } catch (error) {
       logger.error("clear appointment cache error: ", error);

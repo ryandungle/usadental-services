@@ -9,7 +9,7 @@ dotenv.config();
 connectDB();
 const app = express();
 
-cron.schedule("* 8 * * *", function () {
+cron.schedule("0 */8 * * *", function () {
   logger.info("running a task every 8 hours");
   CacheNext2WeekPatients();
 });
