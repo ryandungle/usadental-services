@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const patientSchema = new Schema({}, { strict: false });
+const appointmentSchema = new Schema({}, { strict: false });
 
-module.exports = mongoose.model('AppointmentDentrack', patientSchema);
+module.exports = mongoose.model("AppointmentDentrack", appointmentSchema);

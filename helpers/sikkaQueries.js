@@ -1,7 +1,7 @@
 const { config } = require("./config");
 const axios = require("axios");
 
-const getRequestKey = async () => {
+exports.getRequestKey = async () => {
   const { app_id, app_key, office_id, secret_key } = config;
   const { data } = await axios.get(`https://api.sikkasoft.com/v2/start`, {
     params: {
