@@ -24,6 +24,7 @@ async function getTransactionsByDateRange(startdate, enddate) {
           request_key,
           startdate,
           enddate,
+          transaction_type: "Payment",
           limit,
           offset,
         },
