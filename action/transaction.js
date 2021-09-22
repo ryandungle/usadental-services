@@ -4,7 +4,7 @@ const {
   config: { clinicId },
 } = require("../helpers/config");
 const Transaction = require("../model/transaction");
-const { format } = require("date-fns");
+const { format, subDays } = require("date-fns");
 const logger = require("../utils/logger");
 const { getRequestKey } = require("../helpers/sikkaQueries");
 const PromisePool = require("es6-promise-pool");
@@ -77,13 +77,31 @@ function upsertTransactions(transactions) {
 
 async function cacheTransactionsMissouriOffice() {
   const transactions = await getTransactionsByDateRange(
-    format(new Date(), "yyyy-MM-dd"),
-    format(new Date(), "yyyy-MM-dd")
+    format(subDays(new Date(), 1), "yyyy-MM-dd"),
+    format(subDays(new Date(), 1), "yyyy-MM-dd")
   );
+
   const promisePool = new PromisePool(
     () => upsertTransactions(transactions),
     500
   );
+
+  try {
+    await promisePool.start();
+    logger.info("Add transactions completed");
+  } catch (error) {
+    logger.error(error);
+  }
+}
+
+async function cacheTransactionsMissouriOfficeManually(startDate, endDate) {
+  const transactions = await getTransactionsByDateRange(startDate, endDate);
+  console.log(transactions.length);
+  const promisePool = new PromisePool(
+    () => upsertTransactions(transactions),
+    500
+  );
+
   try {
     await promisePool.start();
     logger.info("Add transactions completed");
@@ -95,4 +113,5 @@ async function cacheTransactionsMissouriOffice() {
 module.exports = {
   getTransactionsByDateRange,
   cacheTransactionsMissouriOffice,
+  cacheTransactionsMissouriOfficeManually,
 };

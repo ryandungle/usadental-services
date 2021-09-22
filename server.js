@@ -8,6 +8,7 @@ const { CacheNext2WeekPatients } = require("./action/appointment");
 const {
   getTransactionsByDateRange,
   cacheTransactionsMissouriOffice,
+  cacheTransactionsMissouriOfficeManually,
 } = require("./action/transaction");
 
 dotenv.config();
